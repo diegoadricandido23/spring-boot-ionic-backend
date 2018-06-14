@@ -16,6 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  * @author Diego Adriano
  * @since 06/07/2018
@@ -31,6 +33,7 @@ public class Categoria implements Serializable {
 	@Column(length = 100)
 	private String nome;
 	
+	@JsonManagedReference
 	@ManyToMany(mappedBy="categorias")
 	private List<Produto> produtos = new ArrayList<>();
 	
