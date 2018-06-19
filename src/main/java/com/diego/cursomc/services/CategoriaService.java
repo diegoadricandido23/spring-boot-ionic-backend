@@ -6,10 +6,12 @@ package com.diego.cursomc.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.diego.cursomc.domain.Categoria;
 import com.diego.cursomc.repositories.CategoriaRepository;
+import com.diego.cursomc.services.exception.DataIntegretyException;
 import com.diego.cursomc.services.exception.ObjectNotFoudException;
 
 /**
@@ -40,4 +42,13 @@ public class CategoriaService {
 		return repository.save(categoria);
 	}
 	
-}
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repository.deleteById(id);
+		} catch (DataIntegrityViolationException e) {
+			throw new DataIntegretyException("Nao e possivel excluir uma categoria que possui produtos");
+		}
+		
+	}
+}	
