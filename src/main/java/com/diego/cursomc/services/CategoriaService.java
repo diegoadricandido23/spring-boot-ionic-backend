@@ -20,13 +20,19 @@ import com.diego.cursomc.services.exception.ObjectNotFoudException;
 public class CategoriaService {
 	
 	@Autowired
-	private CategoriaRepository categoriaRepository;
+	private CategoriaRepository repository;
 	
 	public Categoria find(Integer id) {
-		Optional<Categoria> categoria = categoriaRepository.findById(id);
+		Optional<Categoria> categoria = repository.findById(id);
 		return categoria.orElseThrow(() -> new ObjectNotFoudException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getSimpleName())
 				);
+	}
+	
+	
+	public Categoria insert(Categoria categoria) {
+		categoria.setId(null);
+		return repository.save(categoria);
 	}
 	
 }
