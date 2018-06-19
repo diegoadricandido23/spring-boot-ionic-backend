@@ -1,0 +1,32 @@
+/**
+ * 
+ */
+package com.diego.cursomc.services;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.diego.cursomc.domain.Pedido;
+import com.diego.cursomc.repositories.PedidoRepository;
+import com.diego.cursomc.services.exception.ObjectNotFoudException;
+
+/**
+ * @author Diego Adriano
+ *
+ */
+@Service
+public class PedidoService {
+	
+	@Autowired
+	private PedidoRepository pedidoRepository;
+	
+	public Pedido find(Integer id) {
+		Optional<Pedido> categoria = pedidoRepository.findById(id);
+		return categoria.orElseThrow(() -> new ObjectNotFoudException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getSimpleName())
+				);
+	}
+	
+}
