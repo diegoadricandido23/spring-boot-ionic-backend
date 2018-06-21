@@ -7,53 +7,64 @@ package com.diego.cursomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.diego.cursomc.domain.Categoria;
+import com.diego.cursomc.domain.Cliente;
 
 /**
  * @author diego
  *
  */
-public class CategoriaDTO implements Serializable {
-	
+public class ClienteDTO implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
 	private Integer id;
 	
 	@NotEmpty(message = "Preenchimento Obrigatorio")
-	@Length(min=5, max=80, message = "O Tamanho precisa ser entre 5 e 80 caracteres")
+	@Length(min=5, max = 120, message = "O Tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
 	
-	public CategoriaDTO() {
+	@NotEmpty(message = "Preenchimento Obrigatorio")
+	@Email(message = "Email invalido")
+	private String email;
+	
+	public ClienteDTO() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public CategoriaDTO(Categoria categoria) {
-		id = categoria.getId();
-		nome = categoria.getNome();
-	}
-	
-	public CategoriaDTO(Integer id, String nome) {
-		super();
-		this.id = id;
-		this.nome = nome;
+	public ClienteDTO(Cliente cliente) {
+		id = cliente.getId();
+		nome = cliente.getNome();
+		email = cliente.getEmail();
 	}
 	
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
