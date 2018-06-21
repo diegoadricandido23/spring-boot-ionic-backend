@@ -30,21 +30,21 @@ public class CategoriaService {
 	private CategoriaRepository repository;
 	
 	public Categoria find(Integer id) {
-		Optional<Categoria> categoria = repository.findById(id);
-		return categoria.orElseThrow(() -> new ObjectNotFoudException(
+		Optional<Categoria> cliente = repository.findById(id);
+		return cliente.orElseThrow(() -> new ObjectNotFoudException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getSimpleName())
 				);
 	}
 	
-	
-	public Categoria insert(Categoria categoria) {
-		categoria.setId(null);
-		return repository.save(categoria);
+	public Categoria insert(Categoria cliente) {
+		cliente.setId(null);
+		return repository.save(cliente);
 	}
 	
-	public Categoria update(Categoria categoria) {
-		find(categoria.getId());
-		return repository.save(categoria);
+	public Categoria update(Categoria cliente) {
+		Categoria novoCategoria =  find(cliente.getId());
+		updateData(novoCategoria, cliente);
+		return repository.save(novoCategoria);
 	}
 	
 	public void delete(Integer id) {
@@ -52,7 +52,7 @@ public class CategoriaService {
 		try {
 			repository.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegretyException("Nao e possivel excluir uma categoria que possui produtos");
+			throw new DataIntegretyException("Nao e possivel excluir porque ha entidades relacionas");
 		}
 		
 	}
@@ -68,8 +68,10 @@ public class CategoriaService {
 	}
 	
 	public Categoria fromDTO(CategoriaDTO categoriaDTO) {
-		return new Categoria(categoriaDTO.getId(),categoriaDTO.getNome());
+		return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
 	}
 	
-	
+	private void updateData(Categoria novoCategoria, Categoria antigoCategoria) {
+		novoCategoria.setNome(antigoCategoria.getNome());
+	}
 }	
