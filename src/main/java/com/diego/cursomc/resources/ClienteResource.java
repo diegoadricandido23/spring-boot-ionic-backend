@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.diego.cursomc.domain.Cliente;
+import com.diego.cursomc.domain.Cliente;
+import com.diego.cursomc.dto.ClienteDTO;
+import com.diego.cursomc.dto.ClienteNewDTO;
 import com.diego.cursomc.dto.ClienteDTO;
 import com.diego.cursomc.services.ClienteService;
 
@@ -43,7 +46,7 @@ public class ClienteResource {
 
 		return ResponseEntity.ok().body(cliente);
 	}
-	
+	/*
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO clienteDTO){
 		Cliente cliente = service.fromDTO(clienteDTO);
@@ -51,7 +54,7 @@ public class ClienteResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 					.buildAndExpand(cliente.getId()).toUri();
 		return ResponseEntity.created(uri).build();
-	}
+	}*/
 	
 	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO clienteDTO, @PathVariable Integer id){
@@ -89,5 +92,14 @@ public class ClienteResource {
 		Page<ClienteDTO> clientesDTO = clientes.map(obj -> new ClienteDTO(obj));	
 		
 		return ResponseEntity.ok().body(clientesDTO);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO clienteNewDTO){
+		Cliente categoria = service.fromDTO(clienteNewDTO);
+		categoria = service.insert(categoria);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+					.buildAndExpand(categoria.getId()).toUri();
+		return ResponseEntity.created(uri).build();
 	}
 }

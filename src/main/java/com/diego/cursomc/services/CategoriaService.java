@@ -30,20 +30,20 @@ public class CategoriaService {
 	private CategoriaRepository repository;
 	
 	public Categoria find(Integer id) {
-		Optional<Categoria> cliente = repository.findById(id);
-		return cliente.orElseThrow(() -> new ObjectNotFoudException(
+		Optional<Categoria> categoria = repository.findById(id);
+		return categoria.orElseThrow(() -> new ObjectNotFoudException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getSimpleName())
 				);
 	}
 	
-	public Categoria insert(Categoria cliente) {
-		cliente.setId(null);
-		return repository.save(cliente);
+	public Categoria insert(Categoria categoria) {
+		categoria.setId(null);
+		return repository.save(categoria);
 	}
 	
-	public Categoria update(Categoria cliente) {
-		Categoria novoCategoria =  find(cliente.getId());
-		updateData(novoCategoria, cliente);
+	public Categoria update(Categoria categoria) {
+		Categoria novoCategoria =  find(categoria.getId());
+		updateData(novoCategoria, categoria);
 		return repository.save(novoCategoria);
 	}
 	
