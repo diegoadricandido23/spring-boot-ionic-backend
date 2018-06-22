@@ -20,7 +20,6 @@ import com.diego.cursomc.domain.Endereco;
 import com.diego.cursomc.domain.enums.TipoCliente;
 import com.diego.cursomc.dto.ClienteDTO;
 import com.diego.cursomc.dto.ClienteNewDTO;
-import com.diego.cursomc.repositories.CidadeRepository;
 import com.diego.cursomc.repositories.ClienteRepository;
 import com.diego.cursomc.repositories.EnderecoRepository;
 import com.diego.cursomc.services.exception.DataIntegretyException;
@@ -37,8 +36,6 @@ public class ClienteService {
 	private ClienteRepository repository;
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-	@Autowired
-	private CidadeRepository cidadeRepository;
 	
 	public Cliente find(Integer id) {
 		Optional<Cliente> cliente = repository.findById(id);
@@ -87,7 +84,7 @@ public class ClienteService {
 	
 	public Cliente fromDTO(ClienteNewDTO clienteNewDTO) {
 		Cliente cliente = new Cliente(null, clienteNewDTO.getNome(), clienteNewDTO.getEmail(), clienteNewDTO.getCpfOuCnpj(), TipoCliente.toEnum(clienteNewDTO.getTipo()));
-		Cidade cidade = cidadeRepository.getOne(clienteNewDTO.getCidadeId());
+		Cidade cidade = new Cidade(clienteNewDTO.getCidadeId(), null, null);
 		Endereco endereco = new Endereco(null, clienteNewDTO.getLogradouro(), clienteNewDTO.getNumero(), clienteNewDTO.getComplemento(),
 				clienteNewDTO.getBairro(), clienteNewDTO.getCep(), cliente, cidade);
 		
