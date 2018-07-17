@@ -96,10 +96,10 @@ public class ClienteResource {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO clienteNewDTO){
-		Cliente categoria = service.fromDTO(clienteNewDTO);
-		categoria = service.insert(categoria);
+		Cliente cliente = service.fromDTO(clienteNewDTO);
+		cliente = service.insert(cliente);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-					.buildAndExpand(categoria.getId()).toUri();
+					.buildAndExpand(cliente.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 }
