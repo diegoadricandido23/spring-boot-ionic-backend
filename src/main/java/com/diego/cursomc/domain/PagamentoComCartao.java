@@ -8,12 +8,14 @@ package com.diego.cursomc.domain;
 import javax.persistence.Entity;
 
 import com.diego.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 /**
  * @author diego
  *
  */
 @Entity
+@JsonTypeName("pagamentoComCartao")
 public class PagamentoComCartao extends Pagamento{
 
 	private static final long serialVersionUID = 1L;

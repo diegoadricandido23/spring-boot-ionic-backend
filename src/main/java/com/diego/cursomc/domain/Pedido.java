@@ -31,17 +31,17 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Pedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
 	private Date instante;
 	
-	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
 	
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
