@@ -13,6 +13,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.diego.cursomc.services.EmailService;
+import com.diego.cursomc.services.SmtpEmailService;
+
 /**
  * @author diego
  *
@@ -35,5 +38,10 @@ public class DevConfig {
 		}
 		dbService.instatiateDataBase();
 		return true;
+	}
+	
+	@Bean
+	public EmailService emailService() {
+		return new SmtpEmailService();
 	}
 }
