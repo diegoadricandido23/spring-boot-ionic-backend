@@ -7,9 +7,10 @@ package com.diego.cursomc.dto;
 
 import java.io.Serializable;
 
-import org.hibernate.validator.constraints.Email;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import com.diego.cursomc.services.validation.ClienteInsert;
 
@@ -56,7 +57,10 @@ public class ClienteNewDTO implements Serializable {
 	private String telefone3;
 	
 	private Integer cidadeId;
-
+	
+	@NotEmpty
+	private String senha;
+	
 	public ClienteNewDTO() {
 		// TODO Auto-generated constructor stub
 	}
@@ -140,5 +144,17 @@ public class ClienteNewDTO implements Serializable {
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	/**
+	 * @return the senha
+	 */
+	public String getSenha() {
+		return senha;
+	}
+	/**
+	 * @param senha the senha to set
+	 */
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 }

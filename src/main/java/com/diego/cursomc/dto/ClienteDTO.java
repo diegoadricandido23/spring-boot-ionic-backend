@@ -7,9 +7,10 @@ package com.diego.cursomc.dto;
 
 import java.io.Serializable;
 
-import org.hibernate.validator.constraints.Email;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import com.diego.cursomc.domain.Cliente;
 import com.diego.cursomc.services.validation.ClienteUpdate;
@@ -40,6 +41,7 @@ public class ClienteDTO implements Serializable {
 		id = cliente.getId();
 		nome = cliente.getNome();
 		email = cliente.getEmail();
+		
 	}
 	
 	public Integer getId() {
@@ -69,4 +71,5 @@ public class ClienteDTO implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 }
