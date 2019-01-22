@@ -81,4 +81,8 @@ public class UsuarioSS implements UserDetails{
 		return id;
 	}
 	
+	public boolean hashole(Perfil perfil) {
+		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+	}
+	
 }
