@@ -23,8 +23,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.diego.cursomc.security.JTWUtil;
-import com.diego.cursomc.security.JWTAuthenticationFilter;;
+import com.diego.cursomc.security.JWTUtil;
+import com.diego.cursomc.security.JWTAuthenticationFilter;
+import com.diego.cursomc.security.JWTAuthorizationFilter;;
 
 /**
  * @author diego
@@ -35,7 +36,7 @@ import com.diego.cursomc.security.JWTAuthenticationFilter;;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
-	private JTWUtil jwtUtil;
+	private JWTUtil jwtUtil;
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -50,7 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String[] PUBLIC_MATCHERS_GET = { 
 			"/produtos/**", 
 			"/categorias/**",
-			"/clientes/**"
+			"/clientes/**",
+			"/pedidos/**"
 		};
 
 	@Override
@@ -67,6 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.anyRequest().authenticated();
 		
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 	

@@ -136,7 +136,7 @@ public class DBService {
 		cliente.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
 		cliente2.getEnderecos().addAll(Arrays.asList(endereco3));
 		
-		clienteRepository.saveAll(Arrays.asList(cliente));
+		clienteRepository.saveAll(Arrays.asList(cliente, cliente2));
 		enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
