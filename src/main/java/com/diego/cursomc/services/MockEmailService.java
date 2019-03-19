@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.SimpleMailMessage;
 
+import com.diego.cursomc.domain.Pedido;
+
 /**
  * @author diego
  *
@@ -31,5 +33,12 @@ public class MockEmailService extends AbstractEmailService{
 		LOG.info("Simulando envio de email HTML...");
 		LOG.info(msg.toString());
 		LOG.info("Email Enviado HTML");
+	}
+
+	@Override
+	public void sendOrderConfirmationHtmlEmail(Pedido pedido) {
+		LOG.info("Simulando envio de email Confirmacao de Pedido...");
+		LOG.info(pedido.toString());
+		LOG.info("Email Enviado");
 	}
 }
