@@ -47,7 +47,7 @@ public class SmtpEmailService extends AbstractEmailService{
 	@Override
 	public void sendOrderConfirmationHtmlEmail(Pedido pedido) {
 		LOG.info("Enviando de email Pedido...");
-		javaMailSender.send(pedido.toString());
+		//javaMailSender.send(pedido.toString());
 		LOG.info("Email Enviado");
 	}
 
