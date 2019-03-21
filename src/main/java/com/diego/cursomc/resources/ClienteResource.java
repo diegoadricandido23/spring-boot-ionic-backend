@@ -47,6 +47,14 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(cliente);
 	}
 	
+	@RequestMapping(value="/email", method = RequestMethod.GET)
+	public ResponseEntity<Cliente> find(@RequestParam(value = "email") String email) {
+		
+		Cliente cliente = service.findByEmail(email);
+
+		return ResponseEntity.ok().body(cliente);
+	}
+	
 	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO clienteDTO, @PathVariable Integer id){
 		Cliente cliente = service.fromDTO(clienteDTO);

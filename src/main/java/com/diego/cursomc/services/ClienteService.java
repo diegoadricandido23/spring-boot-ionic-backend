@@ -99,7 +99,21 @@ public class ClienteService {
 	public List<Cliente> findAll() {
 		return repository.findAll();
 	}
-
+	
+	public Cliente findByEmail(String email) {
+		UsuarioSS ss = UserService.authenticated();
+		if(ss == null || !ss.hashole(Perfil.ADMIN) && !email.equals(ss.getUsername())) {
+			throw new AuthorizationException("Acesso Negado !!!");
+		}
+		
+		Cliente cliente = repository.findByEmail(email);
+		if(cliente == null) {
+			throw new ObjectNotFoudException("Objeto nao encontrado! Id: " + ss.getId()
+				+ ", Tipo: " + Cliente.class.getName());
+		}
+		return cliente;
+	}
+	
 	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		@SuppressWarnings("deprecation")
 		PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderBy);
